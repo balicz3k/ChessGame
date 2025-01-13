@@ -5,7 +5,7 @@ Project(ChessGame)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(ToChess 
+add_executable(ChessGame 
                main.cpp
                Board.cpp
                Pieces.cpp

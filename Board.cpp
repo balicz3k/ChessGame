@@ -153,7 +153,7 @@ void Board::makeMove()
     {
         if (turncolour == 'W')
         {
-            std::cout << "\n-White player's turn- [♔]" << std::endl;
+            std::cout << "\n-White player's turn- [♚]" << std::endl;
         }
         else
         {
