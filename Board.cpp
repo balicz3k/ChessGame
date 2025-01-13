@@ -2,6 +2,17 @@
 #include <iostream>
 #include <map>
 
+Board* Board::instance{nullptr};
+
+Board* Board::getInstance()
+{
+    if (not instance)
+    {
+        instance = new Board();
+    }
+    return instance;
+};
+
 Board::Board()
 {
     wking_row = 7;
@@ -83,11 +94,11 @@ void Board::printBoard()
             }
             else if (position[i][j]->getColour() == 'W')
             {
-                std::cout << '|' << '[' << position[i][j]->getId() << ']';
+                std::cout << '|' << '[' << position[i][j]->getSymbol() << ']';
             }
             else if (position[i][j]->getColour() == 'B')
             {
-                std::cout << '|' << '<' << position[i][j]->getId() << '>';
+                std::cout << '|' << '<' << position[i][j]->getSymbol() << '>';
             }
         }
         std::cout << "| " << ranks[i] << '\n';
@@ -144,11 +155,11 @@ void Board::makeMove()
     {
         if (turncolour == 'W')
         {
-            std::cout << "\n-White player's turn- []" << std::endl;
+            std::cout << "\n-White player's turn- [♔]" << std::endl;
         }
         else
         {
-            std::cout << "\n-Black player's turn- <>" << std::endl;
+            std::cout << "\n-Black player's turn- <♔>" << std::endl;
         }
 
         std::cout << "\nSelect the piece:\n";

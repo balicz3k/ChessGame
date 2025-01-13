@@ -8,4 +8,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(ToChess 
                main.cpp
                Board.cpp
-               Piece.cpp)
+               Pieces.cpp
+               Game.cpp)

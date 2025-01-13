@@ -3,26 +3,20 @@
 
 char Piece::getId()
 {
-    if (this == nullptr)
+    if (not this)
     {
         return ' ';
     }
-    else
-    {
-        return id;
-    }
+    return id;
 }
 
 char Piece::getColour()
 {
-    if (this == nullptr)
+    if (not this)
     {
         return ' ';
     }
-    else
-    {
-        return colour;
-    }
+    return colour;
 }
 
 bool Piece::hasMoved()

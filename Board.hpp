@@ -6,6 +6,8 @@
 class Board
 {
 private:
+    Board();
+    static Board* instance;
     char turncolour{'W'};
     int ranks[8] = {8, 7, 6, 5, 4, 3, 2, 1};
     char files[8] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
@@ -13,7 +15,7 @@ private:
     Piece* position[8][8]{nullptr};
 
 public:
-    Board();
+    static Board* getInstance();
     ~Board();
     void printBoard();
     char getTurnColour();
