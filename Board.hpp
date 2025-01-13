@@ -2,8 +2,9 @@
 
 #include <string>
 #include "Pieces.hpp"
-
-class Board
+#include "State.hpp"
+#include "Subject.hpp"
+class Board : public Subject
 {
 private:
     Board();

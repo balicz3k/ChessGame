@@ -22,27 +22,27 @@ Board::Board()
     // allocate pawns
     for (int n{0}; n < 8; n++)
     {
-        position[1][n] = new Pawn{'B'};
-        position[6][n] = new Pawn{'W'};
+        position[1][n] = PieceFactory::createPiece('P', 'B');
+        position[6][n] = PieceFactory::createPiece('P', 'W');
     }
     // allocate black pieces
-    position[0][0] = new Rook{'B'};
-    position[0][1] = new Knight{'B'};
-    position[0][2] = new Bishop{'B'};
-    position[0][3] = new Queen{'B'};
-    position[0][4] = new King{'B'};
-    position[0][5] = new Bishop{'B'};
-    position[0][6] = new Knight{'B'};
-    position[0][7] = new Rook{'B'};
+    position[0][0] = PieceFactory::createPiece('R', 'B');
+    position[0][1] = PieceFactory::createPiece('N', 'B');
+    position[0][2] = PieceFactory::createPiece('B', 'B');
+    position[0][3] = PieceFactory::createPiece('Q', 'B');
+    position[0][4] = PieceFactory::createPiece('K', 'B');
+    position[0][5] = PieceFactory::createPiece('B', 'B');
+    position[0][6] = PieceFactory::createPiece('N', 'B');
+    position[0][7] = PieceFactory::createPiece('R', 'B');
     // allocate white pieces
-    position[7][0] = new Rook{'W'};
-    position[7][1] = new Knight{'W'};
-    position[7][2] = new Bishop{'W'};
-    position[7][3] = new Queen{'W'};
-    position[7][4] = new King{'W'};
-    position[7][5] = new Bishop{'W'};
-    position[7][6] = new Knight{'W'};
-    position[7][7] = new Rook{'W'};
+    position[7][0] = PieceFactory::createPiece('R', 'W');
+    position[7][1] = PieceFactory::createPiece('N', 'W');
+    position[7][2] = PieceFactory::createPiece('B', 'W');
+    position[7][3] = PieceFactory::createPiece('Q', 'W');
+    position[7][4] = PieceFactory::createPiece('K', 'W');
+    position[7][5] = PieceFactory::createPiece('B', 'W');
+    position[7][6] = PieceFactory::createPiece('N', 'W');
+    position[7][7] = PieceFactory::createPiece('R', 'W');
 }
 
 // destructor deletes piece pointers of the Board
@@ -131,8 +131,6 @@ void Board::alternateTurn()
 void Board::startMessage()
 {
     std::cout << "\n\t--- Chess Game ---\n";
-    std::cout << "\n* Input coordinates as 'a1' to play *\n";
-    std::cout << "\n\t   Game Started!" << std::endl;
 }
 
 void Board::endMessageWin(std::string& player)
@@ -481,24 +479,27 @@ bool Board::isCheckmate()
 {
     if (isKingCheck(position, turncolour) && !canKingMove(turncolour))
     {
+        if (getTurnColour() == 'W')
+        {
+            notify(new BlackWin());
+        }
+        else
+        {
+            notify(new WhiteWin());
+        }
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 bool Board::isStalemate()
 {
     if (!isKingCheck(position, turncolour) && !canKingMove(turncolour) && !canAnyMove())
     {
+        notify(new Stalemate());
         return true;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 // create a new piece object to replace the promoted pawn

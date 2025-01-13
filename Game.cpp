@@ -19,37 +19,33 @@ void Game::setState(State* s)
 
 void Game::play()
 {
-    Board chessboard = *Board::getInstance();
     bool is_draw{false};
-    chessboard.startMessage();
-    chessboard.printBoard();
+    state->handle();
+    chessboard->printBoard();
     while (true)
     {
-        chessboard.makeMove();
-        chessboard.alternateTurn();
-        if (chessboard.isCheckmate())
+        chessboard->makeMove();
+        chessboard->alternateTurn();
+        chessboard->printBoard();
+        if (chessboard->isCheckmate())
         {
-            chessboard.printBoard();
-            std::string winning_player;
-            winning_player = (chessboard.getTurnColour() == 'W') ? "Black" : "White";
-            chessboard.endMessageWin(winning_player);
+            state->handle();
             if (keepPlaying())
             {
                 play();
             };
             break;
         }
-        else if (chessboard.isStalemate())
+        else if (chessboard->isStalemate())
         {
-            chessboard.printBoard();
-            chessboard.endMessageDraw();
+            state->handle();
             if (keepPlaying())
             {
                 play();
             };
             break;
         }
-        chessboard.printBoard();
+        chessboard->printBoard();
     }
 }
 
@@ -60,7 +56,14 @@ bool Game::keepPlaying()
     std::cin >> user_choice;
     if (user_choice == 'r')
     {
+        setState(new InGame());
         return true;
     }
     return false;
+}
+
+void Game::update(State* state)
+{
+    delete this->state;
+    this->state = state;
 }
